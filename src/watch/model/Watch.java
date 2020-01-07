@@ -1,6 +1,10 @@
 package watch.model;
 
+import watch.presenter.Observer;
+
 import static java.lang.Math.PI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,6 +12,8 @@ public class Watch {
     private double hours;
     private double minutes;
     private double seconds;
+    private final Timer timer;
+    private final List<Observer> observers;
 
     public Watch() {
         this(PI/2,PI/2,PI/2);
@@ -17,8 +23,9 @@ public class Watch {
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
-        Timer timer = new Timer();
-        timer.schedule(task(), 0, 100);
+        this.timer = new Timer();
+        this.observers = new ArrayList<>();
+        this.timer.schedule(task(), 0, 1000);
     }
 
     public double getHours() {
@@ -45,6 +52,7 @@ public class Watch {
                 seconds = normalize(seconds - DegreesPerSecond);
                 minutes = normalize(minutes - DegreesPerMinute);
                 hours = normalize(hours - DegreesPerHour);
+                updateObservers();
             }
 
             private double normalize(double angle) {
@@ -53,8 +61,18 @@ public class Watch {
         };
     }
 
+    private void updateObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
+
     @Override
     public String toString() {
         return "Watch{" + "hours=" + hours + ", minutes=" + minutes + ", seconds=" + seconds + '}';
+    }
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
     }
 }
