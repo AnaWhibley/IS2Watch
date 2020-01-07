@@ -21,7 +21,7 @@ public class SwingWatchDisplay extends JPanel implements WatchDisplay  {
     private Point[] points = new Point[0];
 
     public SwingWatchDisplay() {
-        this.background = load("background.jpg");
+        this.background = load("reloj.png");
     }
 
     @Override

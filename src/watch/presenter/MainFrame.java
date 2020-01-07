@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame () {
         setTitle("IS2 - Watch");
-        setSize(500,500);
+        setSize(600,622);
         setLocationRelativeTo(null);
         setAlwaysOnTop(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
